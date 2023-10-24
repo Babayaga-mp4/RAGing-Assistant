@@ -1,17 +1,15 @@
 import grpc
 import chat_pb2
 import chat_pb2_grpc
+import sys
 
 def main():
     channel = grpc.insecure_channel('localhost:50051')
     stub = chat_pb2_grpc.ChatAssistantStub(channel)
 
     while True:
-        # Display initial prompt
-        print("\nHello! How can I assist you today?")
-
         # Get user input
-        user_query = input("Enter your query (or 'exit' to quit): ")
+        user_query = input("\nUser(type your query or 'exit' to quit): ")
 
         # Exit loop if user types 'exit'
         if user_query.lower() == 'exit':
@@ -22,6 +20,7 @@ def main():
         for response in response_iterator:
             print(response.content, end="", flush=True)
             sys.stdout.flush()
+        print('\n')
 
 if __name__ == '__main__':
     main()
