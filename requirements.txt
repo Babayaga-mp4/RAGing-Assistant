@@ -2,8 +2,8 @@ attr==0.3.2
 brotli==1.1.0
 brotlicffi==1.1.0.0
 ConfigParser==6.0.0
-cryptography==41.0.4
-Cython==3.0.4
+# Cython==3.0.4
+# cryptography==41.0.4
 dl==0.1.0
 docutils==0.20.1
 HTMLParser==0.0.2
@@ -11,7 +11,7 @@ importlib_metadata==6.8.0
 ipython==8.16.1
 ipywidgets==8.1.1
 Jinja2==3.1.2
-jnius==1.1.0
+# jnius==1.1.0
 keyring==24.2.0
 langchain==0.0.321
 lockfile==0.12.2
