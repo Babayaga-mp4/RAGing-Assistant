@@ -8,7 +8,8 @@ from langchain_openai import OpenAIEmbeddings
 from langchain_qdrant import Qdrant
 from langchain_community.document_loaders import PyPDFLoader
 # from openai import embeddings
-from openai import OpenAI
+from openai import OpenAI, Stream
+from openai.types.chat.chat_completion_chunk import ChatCompletionChunk
 from openai.types.chat.chat_completion_message import ChatCompletionMessage
 
 class TextUtils():
@@ -55,14 +56,15 @@ class ChatBot():
         self.client = OpenAI()
         pass
 
-    def chatty_boi(self, context, query) -> ChatCompletionMessage:
+    def chatty_boi(self, context, query) -> Stream[ChatCompletionChunk]:
         completion = self.client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[
             {"role": "system", "content": "You are witty and cheesey assistant, skilled in explaining complex concepts with creative flair.\
               You will be assisted by AI which bring you the context behind the user's queries"},
             {"role": "user", "content": f"{query}, ------------------------------ Here's some context to help you out {context}"}
-        ]
+        ],
+        stream=True
         )
 
-        return completion.choices[0].message
+        return completion
