@@ -7,7 +7,9 @@ from langchain_openai import OpenAIEmbeddings
 from langchain_openai import OpenAIEmbeddings
 from langchain_qdrant import Qdrant
 from langchain_community.document_loaders import PyPDFLoader
-from openai import embeddings
+# from openai import embeddings
+from openai import OpenAI
+from openai.types.chat.chat_completion_message import ChatCompletionMessage
 
 class TextUtils():
     def __init__(self) -> None:
@@ -47,3 +49,20 @@ class VectorDBUtils():
                         location=":memory:",  # Local mode with in-memory storage only
                         collection_name="my_documents",
                         )
+
+class ChatBot():
+    def __init__(self) -> None:
+        self.client = OpenAI()
+        pass
+
+    def chatty_boi(self, context, query) -> ChatCompletionMessage:
+        completion = self.client.chat.completions.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "system", "content": "You are witty and cheesey assistant, skilled in explaining complex concepts with creative flair.\
+              You will be assisted by AI which bring you the context behind the user's queries"},
+            {"role": "user", "content": f"{query}, ------------------------------ Here's some context to help you out {context}"}
+        ]
+        )
+
+        return completion.choices[0].message
