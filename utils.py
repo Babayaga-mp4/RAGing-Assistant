@@ -12,6 +12,8 @@ from openai import OpenAI, Stream
 from openai.types.chat.chat_completion_chunk import ChatCompletionChunk
 from openai.types.chat.chat_completion_message import ChatCompletionMessage
 
+import ollama
+
 class TextUtils():
     def __init__(self) -> None:
         pass
@@ -65,6 +67,20 @@ class ChatBot():
             {"role": "user", "content": f"{query}, ------------------------------ Here's some context to help you out {context}"}
         ],
         stream=True
+        )
+
+        return completion
+    
+    def open_chatty_boi(self, context, query):
+        # Handles Open Source LLMs
+        completion = ollama.chat(
+            model='phi3:3.8b-mini-128k-instruct-q2_K',
+            messages=[
+                    {"role": "system", "content": "You are witty and cheesey assistant, skilled in explaining complex concepts with creative flair.\
+                    You will be assisted by AI which bring you the context behind the user's queries"},
+                    {"role": "user", "content": f"{query}, ------------------------------ Here's some context to help you out {context}"}
+                ],
+            stream=True,
         )
 
         return completion

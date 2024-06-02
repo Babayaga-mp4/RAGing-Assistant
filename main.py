@@ -22,12 +22,16 @@ if __name__=="__main__":
         query = str(input("User: "))
         result = vector_fetch.similarity_search(query, k=1)
         chatbot = ChatBot()
-        response = chatbot.chatty_boi(result, query)
+        # response = chatbot.chatty_boi(result, query)
+        response = chatbot.open_chatty_boi(result, query)
         answer = ""
         for chunk in response:
-            if chunk.choices[0].delta.content:
-                sys.stdout.write(chunk.choices[0].delta.content)
+            if not chunk['done']: # Use along side ollama
+            # if chunk.choices[0].delta.content:
+                sys.stdout.write(chunk['message']['content'])
+                # sys.stdout.write(chunk.choices[0].delta.content)
                 sys.stdout.flush()
         print()
 
-    
+
+# python main.py docs/NIPS-2017-attention-is-all-you-need-Paper.pdf
