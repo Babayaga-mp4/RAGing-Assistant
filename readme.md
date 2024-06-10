@@ -1,3 +1,5 @@
+#The PDF Awakens: Stream, Chunk, and Converse
+
 This is a fun little project that I've explored to primarily get familiarized with various RAG strategies. The current iteration of the project can:
 
     - Handle large pdfs (Out of the box pdf chunking)
