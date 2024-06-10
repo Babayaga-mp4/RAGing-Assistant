@@ -6,6 +6,7 @@ from langchain_core.documents.base import Document
 from langchain_community.document_loaders import PyPDFLoader
 
 
+from configurations import PDF_CHUNK_SIZE, PDF_OVERLAP
 from constants import MESSAGE_TEMPLATE
 
 class TextUtils():
@@ -15,8 +16,8 @@ class TextUtils():
     def chunk_pdf(self, docs) -> List[Document]:
         text_splitter = CharacterTextSplitter(
             separator = "\n\n",
-            chunk_size = 256,
-            chunk_overlap  = 20
+            chunk_size = PDF_CHUNK_SIZE,
+            chunk_overlap  = PDF_OVERLAP
         )
         docs = text_splitter.split_documents(docs)
         return docs
